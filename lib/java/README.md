@@ -40,8 +40,7 @@ classpath, or install if in your default system classpath of choice.
 Build Thrift behind a proxy:
 
     ant -Dproxy.enabled=1 -Dproxy.host=myproxyhost -Dproxy.user=thriftuser -Dproxy.pass=topsecret
-
-or via
+    ant -Dproxy.host=127.0.0.1 -Dproxy.port=1080or via
 
     ./configure --with-java ANT_FLAGS='-Dproxy.enabled=1 -Dproxy.host=myproxyhost -Dproxy.user=thriftuser -Dproxy.pass=topsecret'
 
