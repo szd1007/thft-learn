@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -51,7 +51,7 @@
     <ClInclude Include="src\thrift\version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\thrift\audit\t_audit.cpp"/>
+    <ClCompile Include="src\thrift\audit\t_audit.cpp" />
     <ClCompile Include="src\thrift\common.cc" />
     <ClCompile Include="src\thrift\generate\t_as3_generator.cc" />
     <ClCompile Include="src\thrift\generate\t_cocoa_generator.cc" />
@@ -102,23 +102,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -194,7 +198,6 @@
     </Link>
     <PreBuildEvent>
       <Command>flex -o "src\\thrift\\thriftl.cc" src/thrift/thriftl.ll &amp;&amp; bison -y -o "src\\thrift\\thrifty.cc" --defines="src\\thrift\\thrifty.hh" src/thrift/thrifty.yy</Command>
-
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -217,7 +220,6 @@
     </Link>
     <PreBuildEvent>
       <Command>flex -o "src\\thrift\\thriftl.cc" src/thrift/thriftl.ll &amp;&amp; bison -y -o "src\\thrift\\thrifty.cc" --defines="src\\thrift\\thrifty.hh" src/thrift/thrifty.yy</Command>
-
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -240,7 +242,6 @@
     </Link>
     <PreBuildEvent>
       <Command>flex -o "src\\thrift\\thriftl.cc" src/thrift/thriftl.ll &amp;&amp; bison -y -o "src\\thrift\\thrifty.cc" --defines="src\\thrift\\thrifty.hh" src/thrift/thrifty.yy</Command>
-
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

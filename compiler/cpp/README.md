@@ -81,3 +81,6 @@ Download inttypes.h from the interwebs and place it in an include path
 location (e.g. thrift/compiler/cpp/src).
 
 Build the compiler in Visual Studio.
+
+
+validated for visual studio 2015

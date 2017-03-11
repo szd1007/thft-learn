@@ -1,19 +1,19 @@
-/* A Bison parser, made by GNU Bison 3.0.2.  */
+/* A Bison parser, made by GNU Bison 2.7.  */
 
 /* Bison interface for Yacc-like parsers in C
-
-   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
-
+   
+      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+   
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-
+   
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
+   
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -26,13 +26,13 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-
+   
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_THRIFT_THRIFTY_HH_INCLUDED
-# define YY_YY_THRIFT_THRIFTY_HH_INCLUDED
-/* Debug traces.  */
+#ifndef YY_YY_SRC_THRIFT_THRIFTY_HH_INCLUDED
+# define YY_YY_SRC_THRIFT_THRIFTY_HH_INCLUDED
+/* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
@@ -40,52 +40,53 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-  enum yytokentype
-  {
-    tok_identifier = 258,
-    tok_literal = 259,
-    tok_doctext = 260,
-    tok_int_constant = 261,
-    tok_dub_constant = 262,
-    tok_include = 263,
-    tok_namespace = 264,
-    tok_cpp_include = 265,
-    tok_cpp_type = 266,
-    tok_xsd_all = 267,
-    tok_xsd_optional = 268,
-    tok_xsd_nillable = 269,
-    tok_xsd_attrs = 270,
-    tok_void = 271,
-    tok_bool = 272,
-    tok_string = 273,
-    tok_binary = 274,
-    tok_slist = 275,
-    tok_senum = 276,
-    tok_i8 = 277,
-    tok_i16 = 278,
-    tok_i32 = 279,
-    tok_i64 = 280,
-    tok_double = 281,
-    tok_map = 282,
-    tok_list = 283,
-    tok_set = 284,
-    tok_oneway = 285,
-    tok_typedef = 286,
-    tok_struct = 287,
-    tok_xception = 288,
-    tok_throws = 289,
-    tok_extends = 290,
-    tok_service = 291,
-    tok_enum = 292,
-    tok_const = 293,
-    tok_required = 294,
-    tok_optional = 295,
-    tok_union = 296,
-    tok_reference = 297
-  };
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     tok_identifier = 258,
+     tok_literal = 259,
+     tok_doctext = 260,
+     tok_int_constant = 261,
+     tok_dub_constant = 262,
+     tok_include = 263,
+     tok_namespace = 264,
+     tok_cpp_include = 265,
+     tok_cpp_type = 266,
+     tok_xsd_all = 267,
+     tok_xsd_optional = 268,
+     tok_xsd_nillable = 269,
+     tok_xsd_attrs = 270,
+     tok_void = 271,
+     tok_bool = 272,
+     tok_string = 273,
+     tok_binary = 274,
+     tok_slist = 275,
+     tok_senum = 276,
+     tok_i8 = 277,
+     tok_i16 = 278,
+     tok_i32 = 279,
+     tok_i64 = 280,
+     tok_double = 281,
+     tok_map = 282,
+     tok_list = 283,
+     tok_set = 284,
+     tok_oneway = 285,
+     tok_typedef = 286,
+     tok_struct = 287,
+     tok_xception = 288,
+     tok_throws = 289,
+     tok_extends = 290,
+     tok_service = 291,
+     tok_enum = 292,
+     tok_const = 293,
+     tok_required = 294,
+     tok_optional = 295,
+     tok_union = 296,
+     tok_reference = 297
+   };
 #endif
 /* Tokens.  */
 #define tok_identifier 258
@@ -129,12 +130,13 @@ extern int yydebug;
 #define tok_union 296
 #define tok_reference 297
 
-/* Value type.  */
+
+
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE YYSTYPE;
-union YYSTYPE
+typedef union YYSTYPE
 {
-#line 74 "thrift/thrifty.yy" /* yacc.c:1909  */
+/* Line 2058 of yacc.c  */
+#line 74 "src/thrift/thrifty.yy"
 
   char*          id;
   int64_t        iconst;
@@ -157,15 +159,29 @@ union YYSTYPE
   t_annotation*  tannot;
   t_field_id     tfieldid;
 
-#line 161 "thrift/thrifty.hh" /* yacc.c:1909  */
-};
+
+/* Line 2058 of yacc.c  */
+#line 165 "src\\\\thrift\\\\thrifty.hh"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
-
 extern YYSTYPE yylval;
 
+#ifdef YYPARSE_PARAM
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void *YYPARSE_PARAM);
+#else
+int yyparse ();
+#endif
+#else /* ! YYPARSE_PARAM */
+#if defined __STDC__ || defined __cplusplus
 int yyparse (void);
+#else
+int yyparse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
 
-#endif /* !YY_YY_THRIFT_THRIFTY_HH_INCLUDED  */
+#endif /* !YY_YY_SRC_THRIFT_THRIFTY_HH_INCLUDED  */
