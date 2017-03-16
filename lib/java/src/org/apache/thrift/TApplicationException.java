@@ -26,7 +26,7 @@ import org.apache.thrift.protocol.TStruct;
 import org.apache.thrift.protocol.TType;
 
 /**
- * Application level exception
+ * Application level exception 测试
  *
  */
 public class TApplicationException extends TException implements TSerializable {
