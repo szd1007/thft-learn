@@ -1,5 +1,5 @@
 /**
- * 
+ * 接口方法类接口，模板模式
  */
 package org.apache.thrift;
 

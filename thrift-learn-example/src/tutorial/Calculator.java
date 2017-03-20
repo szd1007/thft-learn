@@ -1509,7 +1509,7 @@ public class Calculator {
             break;
           }
           switch (schemeField.id) {
-            case 1: // NUM1
+            case 1: // NUM1 通过id确定要处理的字段
               if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
                 struct.num1 = iprot.readI32();
                 struct.setNum1IsSet(true);
