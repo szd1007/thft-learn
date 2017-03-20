@@ -55,7 +55,7 @@ public abstract class TServerTransport implements Closeable {
   }
 
   public abstract void listen() throws TTransportException;
-
+  /**具体的实现要依赖acceptImpl()子类的实现，模板类   */
   public final TTransport accept() throws TTransportException {
     TTransport transport = acceptImpl();
     if (transport == null) {

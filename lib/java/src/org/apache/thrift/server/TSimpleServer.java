@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple singlethreaded server for testing.
- *
+ * 基本的server框架
  */
 public class TSimpleServer extends TServer {
 
@@ -77,7 +77,7 @@ public class TSimpleServer extends TServer {
             if (eventHandler_ != null) {
               eventHandler_.processContext(connectionContext, inputTransport, outputTransport);
             }
-            if(!processor.process(inputProtocol, outputProtocol)) {
+            if(!processor.process(inputProtocol, outputProtocol)) {/**调用Processer接口方法，具体实现是通过thrift生成的代码*/
               break;
             }
           }

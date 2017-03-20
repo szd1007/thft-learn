@@ -30,7 +30,7 @@ import java.net.SocketException;
 
 /**
  * Wrapper around ServerSocket for Thrift.
- *
+ * severSocket实现，
  */
 public class TServerSocket extends TServerTransport {
 
@@ -127,7 +127,7 @@ public class TServerSocket extends TServerTransport {
     }
     try {
       Socket result = serverSocket_.accept();
-      TSocket result2 = new TSocket(result);
+      TSocket result2 = new TSocket(result);/**将socket包装一下，适配Ttransport中的接口方法*/
       result2.setTimeout(clientTimeout_);
       return result2;
     } catch (IOException iox) {

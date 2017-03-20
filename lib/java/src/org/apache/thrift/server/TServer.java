@@ -37,13 +37,13 @@ public abstract class TServer {
       super(transport);
     }
   }
-
+  /**用来处理server中的输入输出的 trasport 和序列化协议Tprotocol Factory类*/
   public static abstract class AbstractServerArgs<T extends AbstractServerArgs<T>> {
-    final TServerTransport serverTransport;
+    final TServerTransport serverTransport; /**具体server实现，普通的serverSocket；NonblockingServer*/
     TProcessorFactory processorFactory;
-    TTransportFactory inputTransportFactory = new TTransportFactory();
-    TTransportFactory outputTransportFactory = new TTransportFactory();
-    TProtocolFactory inputProtocolFactory = new TBinaryProtocol.Factory();
+    TTransportFactory inputTransportFactory = new TTransportFactory();/**默认空对象，没有实现*/
+    TTransportFactory outputTransportFactory = new TTransportFactory();/**默认空对象，没有实现*/
+    TProtocolFactory inputProtocolFactory = new TBinaryProtocol.Factory();/**默认二进制输入输出*/
     TProtocolFactory outputProtocolFactory = new TBinaryProtocol.Factory();
 
     public AbstractServerArgs(TServerTransport transport) {
@@ -99,12 +99,12 @@ public abstract class TServer {
   protected TProcessorFactory processorFactory_;
 
   /**
-   * Server transport
+   * Server transport   server接口  socketServer nioServer
    */
   protected TServerTransport serverTransport_;
 
   /**
-   * Input Transport Factory
+   * Input Transport Factory   io层的输入输出的工厂类
    */
   protected TTransportFactory inputTransportFactory_;
 
@@ -114,7 +114,7 @@ public abstract class TServer {
   protected TTransportFactory outputTransportFactory_;
 
   /**
-   * Input Protocol Factory
+   * Input Protocol Factory 序列化和反序列化的工厂类
    */
   protected TProtocolFactory inputProtocolFactory_;
 
@@ -123,12 +123,12 @@ public abstract class TServer {
    */
   protected TProtocolFactory outputProtocolFactory_;
 
-  private boolean isServing;
+  private boolean isServing; /**状态标志*/
 
-  protected TServerEventHandler eventHandler_;
+  protected TServerEventHandler eventHandler_;/**需要自己实现*/
 
   // Flag for stopping the server
-  // Please see THRIFT-1795 for the usage of this flag
+  // Please see THRIFT-1795 for the usage of this flag https://issues.apache.org/jira/browse/THRIFT-1795
   protected volatile boolean stopped_ = false;
 
   protected TServer(AbstractServerArgs args) {

@@ -24,7 +24,7 @@ import java.io.Closeable;
 /**
  * Generic class that encapsulates the I/O layer. This is basically a thin
  * wrapper around the combined functionality of Java input/output streams.
- *
+ *所有IO层的封装，eg. TserverTransport 中 accept方法返回的 TSocket
  */
 public abstract class TTransport implements Closeable {
 
