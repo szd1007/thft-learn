@@ -59,7 +59,7 @@ public class JavaClient {
         transport = TSSLTransportFactory.getClientSocket("localhost", 9091, 0, params);
       }
 
-      TProtocol protocol = new  TBinaryProtocol(transport);
+      TProtocol protocol = new  TBinaryProtocol(transport);/**输入输出的协议，二进制形式，默认实现*/
       Calculator.Client client = new Calculator.Client(protocol);
 
       perform(client);
