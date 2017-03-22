@@ -117,7 +117,7 @@ public class TBinaryProtocol extends TProtocol {
       writeString(message.name);
       writeI32(message.seqid);
     } else {
-      writeString(message.name);
+      writeString(message.name);/**写入名称序列号id等*/
       writeByte(message.type);
       writeI32(message.seqid);
     }

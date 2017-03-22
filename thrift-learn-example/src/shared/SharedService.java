@@ -29,7 +29,7 @@ public class SharedService {
         return new Client(prot);
       }
       public Client getClient(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
-        return new Client(iprot, oprot);
+        return new Client(iprot, oprot);/**输入输出用的同一个协议*/
       }
     }
 

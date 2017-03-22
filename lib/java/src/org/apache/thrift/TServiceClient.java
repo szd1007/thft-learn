@@ -68,7 +68,7 @@ public abstract class TServiceClient {
 
   private void sendBase(String methodName, TBase<?,?> args, byte type) throws TException {
     oprot_.writeMessageBegin(new TMessage(methodName, type, ++seqid_));
-    args.write(oprot_);
+    args.write(oprot_);/**每个args都有两个对应的read和write方法*/
     oprot_.writeMessageEnd();
     oprot_.getTransport().flush();
   }

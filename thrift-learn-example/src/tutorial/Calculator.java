@@ -51,7 +51,7 @@ public class Calculator {
 
   public static class Client extends shared.SharedService.Client implements Iface {
     public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
-      public Factory() {}
+      public Factory() {}/**工厂模式负责创建类对象，不直接写死在代码里*/
       public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
         return new Client(prot);
       }
