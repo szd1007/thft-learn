@@ -40,11 +40,11 @@ import org.slf4j.LoggerFactory;
 /**
  * Server which uses Java's built in ThreadPool management to spawn off
  * a worker pool that
- *
+ *阻塞处理方法，每个socket处理过程中，执行线程在等待过程处理完毕。
  */
 public class TThreadPoolServer extends TServer {
   private static final Logger LOGGER = LoggerFactory.getLogger(TThreadPoolServer.class.getName());
-
+  /**线程池方式进行客户端socket处理，比如客户端的Tsocket*/
   public static class Args extends AbstractServerArgs<Args> {
     public int minWorkerThreads = 5;
     public int maxWorkerThreads = Integer.MAX_VALUE;
@@ -159,7 +159,7 @@ public class TThreadPoolServer extends TServer {
     int failureCount = 0;
     while (!stopped_) {
       try {
-        TTransport client = serverTransport_.accept();
+        TTransport client = serverTransport_.accept();/**这个accept方法可以返回客户端的socket对象，如果对象一直处理不完成改对象不会释放*/
         WorkerProcess wp = new WorkerProcess(client);
 
         int retryCount = 0;
@@ -234,7 +234,7 @@ public class TThreadPoolServer extends TServer {
     stopped_ = true;
     serverTransport_.interrupt();
   }
-
+  /**内部非静态类，当前类可以创建这个类的多个对象。*/
   private class WorkerProcess implements Runnable {
 
     /**
@@ -268,7 +268,7 @@ public class TThreadPoolServer extends TServer {
         processor = processorFactory_.getProcessor(client_);
         inputTransport = inputTransportFactory_.getTransport(client_);
         outputTransport = outputTransportFactory_.getTransport(client_);
-        inputProtocol = inputProtocolFactory_.getProtocol(inputTransport);
+        inputProtocol = inputProtocolFactory_.getProtocol(inputTransport);/**server端序列化协议与client的transport进行关联*/
         outputProtocol = outputProtocolFactory_.getProtocol(outputTransport);	  
 
         eventHandler = getEventHandler();
@@ -282,7 +282,7 @@ public class TThreadPoolServer extends TServer {
             if (eventHandler != null) {
               eventHandler.processContext(connectionContext, inputTransport, outputTransport);
             }
-
+            /**处理完一次请求就返回,一次请求会把相关方法调用的参数发送过来*/
             if(stopped_ || !processor.process(inputProtocol, outputProtocol)) {
               break;
             }
@@ -306,7 +306,7 @@ public class TThreadPoolServer extends TServer {
           outputTransport.close();
         }
         if (client_.isOpen()) {
-          client_.close();
+          client_.close();/**处理完一次请求就关闭client连接*/
         }
       }
     }

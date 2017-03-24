@@ -227,7 +227,7 @@ public class TSocket extends TIOStreamTransport {
     }
   }
 
-  /**
+  /**  TThreadPoolServer 这个类处理完一次请求会调用该方法实现
    * Closes the socket.
    */
   public void close() {

@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Provides common methods and classes used by nonblocking TServer
- * implementations.
+ * implementations.非阻塞服务端实现 nio介绍 http://www.molotang.com/articles/906.html  http://www.cnblogs.com/yueweimian/p/6262211.html
  */
 public abstract class AbstractNonblockingServer extends TServer {
   protected final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
