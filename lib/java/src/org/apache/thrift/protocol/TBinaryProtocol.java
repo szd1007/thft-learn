@@ -313,12 +313,12 @@ public class TBinaryProtocol extends TProtocol {
     byte[] buf = inoutTemp;
     int off = 0;
 
-    if (trans_.getBytesRemainingInBuffer() >= 4) {
+    if (trans_.getBytesRemainingInBuffer() >= 4) { /**buffer方式读取，*/
       buf = trans_.getBuffer();
       off = trans_.getBufferPosition();
       trans_.consumeBuffer(4);
     } else {
-      readAll(inoutTemp, 0, 4);
+      readAll(inoutTemp, 0, 4);/**普通的数据流方式*/
     }
     return
       ((buf[off] & 0xff) << 24) |

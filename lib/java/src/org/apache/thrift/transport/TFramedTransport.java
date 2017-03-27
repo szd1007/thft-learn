@@ -91,13 +91,13 @@ public class TFramedTransport extends TTransport {
 
   public int read(byte[] buf, int off, int len) throws TTransportException {
     if (readBuffer_ != null) {
-      int got = readBuffer_.read(buf, off, len);
+      int got = readBuffer_.read(buf, off, len); /**把readbuffer中的数据读出来到buf数组*/
       if (got > 0) {
         return got;
       }
     }
 
-    // Read another frame of data
+    // Read another frame of data 上面没有读到数据，读数据到readbuffer(这个其实就是一个内存数据)
     readFrame();
 
     return readBuffer_.read(buf, off, len);
@@ -126,8 +126,8 @@ public class TFramedTransport extends TTransport {
   private final byte[] i32buf = new byte[4];
 
   private void readFrame() throws TTransportException {
-    transport_.readAll(i32buf, 0, 4);
-    int size = decodeFrameSize(i32buf);
+    transport_.readAll(i32buf, 0, 4);/**4字节作为每一帧数据size的大小计数*/
+    int size = decodeFrameSize(i32buf);/**获取这一帧数据大小*/
 
     if (size < 0) {
       close();

@@ -17,7 +17,7 @@
  * under the License.
  */
 package org.apache.thrift.transport;
-
+/**内存模型*/
 public final class TMemoryInputTransport extends TTransport {
 
   private byte[] buf_;

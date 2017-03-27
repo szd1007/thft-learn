@@ -71,7 +71,7 @@ public abstract class TTransport implements Closeable {
 
   /**
    * Guarantees that all of len bytes are actually read off the transport.
-   *
+   *  保证取到指定长度的数据，这个在stream流中取固定长度数据的时候会用到
    * @param buf Array to read into
    * @param off Index to start reading at
    * @param len Maximum number of bytes to read
