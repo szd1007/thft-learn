@@ -23,7 +23,7 @@ import org.apache.thrift.TByteArrayOutputStream;
 
 /**
  * TFramedTransport is a buffered TTransport that ensures a fully read message
- * every time by preceding messages with a 4-byte frame size.
+ * every time by preceding messages with a 4-byte frame size.也就是说，客户端发送过来的数据是按照数据帧为单位
  */
 public class TFramedTransport extends TTransport {
 
