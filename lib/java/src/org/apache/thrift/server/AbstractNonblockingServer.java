@@ -367,11 +367,11 @@ public abstract class AbstractNonblockingServer extends TServer {
           // increment the amount of memory allocated to read buffers
           readBufferBytesAllocated.addAndGet(frameSize + 4);
 
-          // reallocate the readbuffer as a frame-sized buffer
-          buffer_ = ByteBuffer.allocate(frameSize + 4);
+          // reallocate the readbuffer as a frame-sized buffer 重新申请空间，正好存放一帧的数据
+          buffer_ = ByteBuffer.allocate(frameSize + 4);/** 每一帧的数据格式 size(int) + frame*/
           buffer_.putInt(frameSize);
 
-          state_ = FrameBufferState.READING_FRAME;
+          state_ = FrameBufferState.READING_FRAME;//更改状态机到 reading_frame
         } else {
           // this skips the check of READING_FRAME state below, since we can't
           // possibly go on to that state if there's data left to be read at
