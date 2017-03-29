@@ -309,7 +309,7 @@ public abstract class AbstractNonblockingServer extends TServer {
       trans_ = trans;
       selectionKey_ = selectionKey;
       selectThread_ = selectThread;
-      buffer_ = ByteBuffer.allocate(4);
+      buffer_ = ByteBuffer.allocate(4);/**开始大小为4byte 这个是size的int值*/
 
       frameTrans_ = new TMemoryInputTransport();
       response_ = new TByteArrayOutputStream();
@@ -369,13 +369,13 @@ public abstract class AbstractNonblockingServer extends TServer {
 
           // reallocate the readbuffer as a frame-sized buffer 重新申请空间，正好存放一帧的数据
           buffer_ = ByteBuffer.allocate(frameSize + 4);/** 每一帧的数据格式 size(int) + frame*/
-          buffer_.putInt(frameSize);
+          buffer_.putInt(frameSize);/**transport中已经读完size了，再读便是数据，buffer中要重新放进size数据*/
 
           state_ = FrameBufferState.READING_FRAME;//更改状态机到 reading_frame
         } else {
           // this skips the check of READING_FRAME state below, since we can't
           // possibly go on to that state if there's data left to be read at
-          // this one.
+          // this one. 没有读到帧的大小数据
           return true;
         }
       }
@@ -391,10 +391,10 @@ public abstract class AbstractNonblockingServer extends TServer {
 
         // since we're already in the select loop here for sure, we can just
         // modify our selection key directly.
-        if (buffer_.remaining() == 0) {
-          // get rid of the read select interests
+        if (buffer_.remaining() == 0) {/**初始化时，已经指定了limit大小 size加frame数据。改条件成立说明该帧数据已经完成读取*/
+          // get rid of the read select interests 从读事件中移除
           selectionKey_.interestOps(0);
-          state_ = FrameBufferState.READ_FRAME_COMPLETE;
+          state_ = FrameBufferState.READ_FRAME_COMPLETE;/**状态切换*/
         }
 
         return true;
@@ -419,7 +419,7 @@ public abstract class AbstractNonblockingServer extends TServer {
           return false;
         }
 
-        // we're done writing. now we need to switch back to reading.
+        // we're done writing. now we need to switch back to reading. 写操作完成
         if (buffer_.remaining() == 0) {
           prepareRead();
         }
