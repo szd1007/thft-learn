@@ -488,7 +488,7 @@ public abstract class AbstractNonblockingServer extends TServer {
       readBufferBytesAllocated.addAndGet(-buffer_.array().length);
 
       if (response_.len() == 0) {
-        // go straight to reading again. this was probably an oneway method
+        // go straight to reading again. this was probably an oneway method ，方法没有返回值
         state_ = FrameBufferState.AWAITING_REGISTER_READ;
         buffer_ = null;
       } else {
