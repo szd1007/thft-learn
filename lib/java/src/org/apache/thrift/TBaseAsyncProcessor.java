@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Map;
-
+/**异步处理框架*/
 public class TBaseAsyncProcessor<I> implements TAsyncProcessor, TProcessor {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
 
