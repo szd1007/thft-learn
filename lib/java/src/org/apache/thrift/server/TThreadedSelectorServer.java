@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * reads/writes and invocation, the server has better ability to handle back-
  * pressure from new connections (e.g. stop accepting when busy).
  * 
- * Like TNonblockingServer, it relies on the use of TFramedTransport.
+ * Like TNonblockingServer, it relies on the use of TFramedTransport.客户端要使用这个协议传输
  */
 public class TThreadedSelectorServer extends AbstractNonblockingServer {
   private static final Logger LOGGER = LoggerFactory.getLogger(TThreadedSelectorServer.class.getName());
@@ -69,11 +69,11 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
      * invocations. This may be set to 0, in which case invocations will be
      * handled directly on the selector threads (as is in TNonblockingServer)
      */
-    private int workerThreads = 5;
+    private int workerThreads = 5;/**invoker的默认线程池个数，如果0就不创建返回null*/
     /** Time to wait for server to stop gracefully */
     private int stopTimeoutVal = 60;
     private TimeUnit stopTimeoutUnit = TimeUnit.SECONDS;
-    /** The ExecutorService for handling dispatched requests */
+    /** The ExecutorService for handling dispatched requests 这个也是和invoker相关的，user自定义传入invoker实现*/
     private ExecutorService executorService = null;
     /**
      * The size of the blocking queue per selector thread for passing accepted
@@ -180,15 +180,15 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
     }
   }
 
-  // The thread handling all accepts
+  // The thread handling all accepts 一个线程接收所有客户端的accept连接
   private AcceptThread acceptThread;
 
-  // Threads handling events on client transports
+  // Threads handling events on client transports   线程池处理所有已经连接的请求
   private final Set<SelectorThread> selectorThreads = new HashSet<SelectorThread>();
 
   // This wraps all the functionality of queueing and thread pool management
   // for the passing of Invocations from the selector thread(s) to the workers
-  // (if any).
+  // (if any). 具体的调用处理，selector包装然后传递到这边
   private final ExecutorService invoker;
 
   private final Args args;
@@ -310,7 +310,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
         return false;
       }
     } else {
-      // Invoke on the caller's thread
+      // Invoke on the caller's thread  如果invoker null 直接就在selector线程中调用。没有启动线程
       invocation.run();
       return true;
     }
@@ -329,7 +329,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
 
   private static BlockingQueue<TNonblockingTransport> createDefaultAcceptQueue(int queueSize) {
     if (queueSize == 0) {
-      // Unbounded queue
+      // Unbounded queue 无界
       return new LinkedBlockingQueue<TNonblockingTransport>();
     }
     return new ArrayBlockingQueue<TNonblockingTransport>(queueSize);
@@ -643,7 +643,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
 
   /**
    * A round robin load balancer for choosing selector threads for new
-   * connections.
+   * connections.轮询调度算法
    */
   protected static class SelectorThreadLoadBalancer {
     private final Collection<? extends SelectorThread> threads;
@@ -653,7 +653,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
       if (threads.isEmpty()) {
         throw new IllegalArgumentException("At least one selector thread is required");
       }
-      this.threads = Collections.unmodifiableList(new ArrayList<T>(threads));
+      this.threads = Collections.unmodifiableList(new ArrayList<T>(threads));/**结构中存储的是对象引用*/
       nextThreadIterator = this.threads.iterator();
     }
 
