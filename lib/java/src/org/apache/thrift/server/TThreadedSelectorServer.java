@@ -357,7 +357,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
       this.serverTransport = serverTransport;
       this.threadChooser = threadChooser;
       this.acceptSelector = SelectorProvider.provider().openSelector();
-      this.serverTransport.registerSelector(acceptSelector);
+      this.serverTransport.registerSelector(acceptSelector);/**这个会把servertrans和selector关联起来*/
     }
 
     /**
@@ -400,7 +400,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
      */
     private void select() {
       try {
-        // wait for connect events.
+        // wait for connect events. 初始化AcceptThread的时候已经关联好了
         acceptSelector.select();
 
         // process the io events we received
@@ -414,7 +414,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
             continue;
           }
 
-          if (key.isAcceptable()) {
+          if (key.isAcceptable()) {/**接收accept信息*/
             handleAccept();
           } else {
             LOGGER.warn("Unexpected state in select! " + key.interestOps());
@@ -527,7 +527,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
         LOGGER.warn("Interrupted while adding accepted connection!", e);
         return false;
       }
-      selector.wakeup();
+      selector.wakeup();/**当前selector中的select方法会直接返回*/
       return true;
     }
 
@@ -539,7 +539,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
       try {
         while (!stopped_) {
           select();
-          processAcceptedConnections();
+          processAcceptedConnections();/**把accept的连接注册到selection中*/
           processInterestChanges();
         }
         for (SelectionKey selectionKey : selector.keys()) {
@@ -566,7 +566,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
      */
     private void select() {
       try {
-        // wait for io events.
+        // wait for io events. 调用selector wakeup方法改方法会返回 ,这里可以是否可以加个超时参数
         selector.select();
 
         // process the io events we received
@@ -618,9 +618,9 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
     private void registerAccepted(TNonblockingTransport accepted) {
       SelectionKey clientKey = null;
       try {
-        clientKey = accepted.registerSelector(selector, SelectionKey.OP_READ);
+        clientKey = accepted.registerSelector(selector, SelectionKey.OP_READ);/**注册读事件*/
 
-        FrameBuffer frameBuffer = createFrameBuffer(accepted, clientKey, SelectorThread.this);
+        FrameBuffer frameBuffer = createFrameBuffer(accepted, clientKey, SelectorThread.this);/**创建关联的frameBuffer*/
 
         clientKey.attach(frameBuffer);
       } catch (IOException e) {

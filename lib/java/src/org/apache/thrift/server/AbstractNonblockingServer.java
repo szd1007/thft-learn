@@ -200,7 +200,7 @@ public abstract class AbstractNonblockingServer extends TServer {
      */
     protected void handleRead(SelectionKey key) {
       FrameBuffer buffer = (FrameBuffer) key.attachment();
-      if (!buffer.read()) {
+      if (!buffer.read()) {/**异步read*/
         cleanupSelectionKey(key);
         return;
       }
