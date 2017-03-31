@@ -188,7 +188,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
 
   // This wraps all the functionality of queueing and thread pool management
   // for the passing of Invocations from the selector thread(s) to the workers
-  // (if any). 具体的调用处理，selector包装然后传递到这边
+  // (if any). 从accept线程中向selector阻塞任务队提交任务，可能会造成阻塞
   private final ExecutorService invoker;
 
   private final Args args;
@@ -341,11 +341,11 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
    */
   protected class AcceptThread extends Thread {
 
-    // The listen socket to accept on
+    // The listen socket to accept on  服务端tcp监听端口
     private final TNonblockingServerTransport serverTransport;
-    private final Selector acceptSelector;
+    private final Selector acceptSelector;//监听所有accept
 
-    private final SelectorThreadLoadBalancer threadChooser;
+    private final SelectorThreadLoadBalancer threadChooser;//selector选择器
 
     /**
      * Set up the AcceptThead
@@ -371,7 +371,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
           eventHandler_.preServe();
         }
 
-        while (!stopped_) {
+        while (!stopped_) {//循环工作，接收accept 处理
           select();
         }
       } catch (Throwable t) {
@@ -439,7 +439,7 @@ public class TThreadedSelectorServer extends AbstractNonblockingServer {
         } else {
           // FAIR_ACCEPT
           try {
-            invoker.submit(new Runnable() {
+            invoker.submit(new Runnable() {//调用的方法可能会阻塞，所以用线程池
               public void run() {
                 doAddAccept(targetThread, client);
               }
