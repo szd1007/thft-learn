@@ -17,11 +17,14 @@ package nio;/*
  * under the License.
  */
 
-// Generated code
-import tutorial.*;
-import shared.*;
+import shared.SharedStruct;
+import tutorial.Calculator;
+import tutorial.InvalidOperation;
+import tutorial.Work;
 
 import java.util.HashMap;
+
+// Generated code
 
 public class CalculatorHandler implements Calculator.Iface {
 
